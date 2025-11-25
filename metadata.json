@@ -1,0 +1,7 @@
+{
+  "name": "Neural Nexus - AI Research Lab",
+  "description": "A personal portfolio and advanced AI research workbench featuring Gemini 2.5 Image Editing, Live Audio conversation, Veo Video Generation, and Search Grounding.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
