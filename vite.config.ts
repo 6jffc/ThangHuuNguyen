@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // IMPORTANT: Replace 'neural-nexus-portfolio' with your actual GitHub repository name
-  base: '/neural-nexus-portfolio/',
+  base: ' https://6jffc.github.io/ThangHuuNguyen',
 })
