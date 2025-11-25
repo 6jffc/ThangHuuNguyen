@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://[YOUR_USERNAME].github.io/neural-nexus-portfolio",
+  "homepage": "https://6jffc.github.io/ThangHuuNguyen",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
