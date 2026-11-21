@@ -1,129 +1,94 @@
-
 import React from 'react';
-import { EDUCATION, PUBLICATIONS } from '../constants';
-import { Sidebar } from './Sidebar';
 import { useThemeLanguage } from '../contexts/ThemeLanguageContext';
 
+const SectionTitle: React.FC<{eyebrow:string; title:string; note?:string}> = ({eyebrow,title,note}) => (
+  <div className="mb-7">
+    <p className="text-xs font-mono uppercase tracking-[.18em] text-blue-600 dark:text-blue-400 mb-2">{eyebrow}</p>
+    <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-gray-950 dark:text-gray-50">{title}</h2>
+    {note && <p className="mt-2 text-sm leading-7 text-gray-600 dark:text-gray-400 max-w-3xl">{note}</p>}
+  </div>
+);
+
 export const Home: React.FC = () => {
-  const { t, language } = useThemeLanguage();
-
+  const { language } = useThemeLanguage();
+  const vi = language === 'vi';
+  const text = vi ? {
+    role:'Sinh viên Khoa học dữ liệu · Người học và thực hành nghiên cứu AI',
+    intro:'Tôi quan tâm đến cách biến những ý tưởng toán học và thuật toán học máy thành hệ thống AI có thể kiểm chứng, tái lập và hữu ích trong thực tế.',
+    location:'Việt Nam', status:'Đang xây dựng nền tảng nghiên cứu',
+    focus:'Hướng nghiên cứu', focusNote:'Các chủ đề tôi đang học, đọc paper và thử nghiệm. Đây là định hướng phát triển, không phải tuyên bố chuyên môn đã hoàn tất.',
+    areas:[['Machine Learning & Statistical Learning','Mô hình hóa, xác suất, suy luận thống kê, đánh giá và khả năng tổng quát hóa.'],['Computer Vision & Medical AI','Phân tích ảnh, mô hình 2D/3D, segmentation và ứng dụng AI trong tin học y sinh.'],['LLMs & AI Systems','Transformer, RAG, agents, orchestration, đánh giá và triển khai ứng dụng AI.'],['Reliable ML & MLOps','Data pipeline, validation, reproducibility, monitoring và triển khai mô hình.']],
+    now:'Đang nghiên cứu và thực hành', nowNote:'Tôi ưu tiên dự án có dữ liệu, baseline, tiêu chí đánh giá, thí nghiệm đối chứng và nhật ký quyết định rõ ràng.',
+    projects:[['Credit Card Fraud Detection','Phân loại gian lận giao dịch; tập trung vào class imbalance, ROC-AUC, validation và kiểm soát leakage.','In progress','/projects/credit-card-fraud/'],['3D Medical Image Segmentation','Thực hành 3D U-Net, xử lý volume MRI, sliding-window inference và đánh giá segmentation.','Research practice',''],['Vehicle Detection & Distance Estimation','Bài toán thị giác máy tính kết hợp phát hiện đối tượng và ước lượng khoảng cách.','Selected project',''],['Vietnamese Job Description Intelligence','Xây dựng pipeline dữ liệu và trợ lý phân tích mô tả công việc tiếng Việt.','Applied AI','']],
+    writing:'Viết để hiểu sâu hơn', writingNote:'Blog là nơi tôi ghi lại quá trình học, giải thích lại khái niệm bằng ngôn ngữ của mình, phân tích paper và công bố cả những điều chưa thành công.',
+    categories:[['Research notes','Ghi chú đọc paper, giả thuyết và câu hỏi nghiên cứu.'],['Technical tutorials','Toán học, thuật toán, ML/DL và triển khai Python.'],['Experiments & failures','Thiết kế thí nghiệm, kết quả âm tính, lỗi và bài học.'],['AI systems','LLM, agents, MLOps và kỹ thuật xây dựng sản phẩm.']],
+    method:'Nguyên tắc làm nghiên cứu', methodNote:'Một dự án tốt không chỉ có mô hình chạy được. Nó cần câu hỏi rõ, dữ liệu có nguồn gốc, baseline phù hợp, phép đo đúng và kết quả có thể tái lập.',
+    principles:['Đặt câu hỏi và giả thuyết trước khi chọn mô hình.','Đọc và kiểm tra dữ liệu trước khi huấn luyện.','Thiết lập baseline và validation trước tối ưu.','So sánh công bằng: cùng split, metric và điều kiện.','Ghi lại seed, cấu hình, phiên bản dữ liệu và commit.','Phân biệt kết quả đo được, giả thuyết và ý kiến cá nhân.'],
+    connect:'Kết nối & hồ sơ', connectNote:'Tôi luôn sẵn sàng trao đổi về AI, học thuật, dự án mã nguồn mở và cơ hội cộng tác.',
+    links:[['GitHub','https://github.com/6jffc'],['Kaggle','https://www.kaggle.com/'],['Email','mailto:']]
+  } : {
+    role:'Data Science student · AI research learner and practitioner',
+    intro:'I am interested in turning mathematical ideas and machine-learning methods into AI systems that are measurable, reproducible, and useful in practice.',
+    location:'Vietnam', status:'Building a research foundation',
+    focus:'Research interests', focusNote:'Topics I am currently studying, reading about, and experimenting with. These are developing interests, not claims of established expertise.',
+    areas:[['Machine Learning & Statistical Learning','Modeling, probability, statistical reasoning, evaluation, and generalization.'],['Computer Vision & Medical AI','Image analysis, 2D/3D models, segmentation, and biomedical informatics.'],['LLMs & AI Systems','Transformers, RAG, agents, orchestration, evaluation, and AI applications.'],['Reliable ML & MLOps','Data pipelines, validation, reproducibility, monitoring, and deployment.']],
+    now:'Current research practice', nowNote:'I prioritize projects with explicit datasets, baselines, evaluation criteria, controlled experiments, and traceable research notes.',
+    projects:[['Credit Card Fraud Detection','Transaction fraud classification, with a focus on class imbalance, ROC-AUC, validation, and leakage control.','In progress','/projects/credit-card-fraud/'],['3D Medical Image Segmentation','Hands-on work with 3D U-Net, MRI volumes, sliding-window inference, and segmentation evaluation.','Research practice',''],['Vehicle Detection & Distance Estimation','A computer-vision task combining object detection and distance estimation.','Selected project',''],['Vietnamese Job Description Intelligence','A data pipeline and assistant for analyzing Vietnamese job descriptions.','Applied AI','']],
+    writing:'Writing as a way to think', writingNote:'This blog documents how I learn: explaining concepts in my own words, reading papers critically, sharing experiments, and being transparent about what did not work.',
+    categories:[['Research notes','Paper reading, hypotheses, and open research questions.'],['Technical tutorials','Mathematics, algorithms, ML/DL, and Python implementation.'],['Experiments & failures','Experimental design, negative results, debugging, and lessons.'],['AI systems','LLMs, agents, MLOps, and engineering AI products.']],
+    method:'Research principles', methodNote:'A strong project is more than a working model. It needs a clear question, traceable data, a meaningful baseline, appropriate metrics, and reproducible evidence.',
+    principles:['Write the research question and hypothesis before choosing a model.','Inspect and understand the data before training.','Establish a baseline and validation protocol before tuning.','Compare fairly: same splits, metrics, and conditions.','Record seeds, configurations, data versions, and code commits.','Separate measured results, hypotheses, and personal opinions.'],
+    connect:'Connect & profiles', connectNote:'I welcome conversations about AI, learning, open-source projects, and research collaboration.',
+    links:[['GitHub','https://github.com/6jffc'],['Kaggle','https://www.kaggle.com/'],['Email','mailto:']]
+  };
   return (
-    <div className="w-full bg-white dark:bg-gray-900 transition-colors duration-300">
-        {/* 1. Hero Image / Banner */}
-        <div className="w-full h-80 bg-gray-100 dark:bg-gray-800 overflow-hidden relative border-b border-gray-200 dark:border-gray-700 group">
-             {/* Background Image */}
-             <div className="absolute inset-0">
-                <img 
-                    src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=2574&auto=format&fit=crop" 
-                    alt="Artistic Landscape Background" 
-                    className="w-full h-full object-cover opacity-90 dark:opacity-60 transition-transform duration-[20s] ease-in-out group-hover:scale-110"
-                />
-                {/* Overlay gradient for smooth transition */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-white dark:via-gray-900/10 dark:to-gray-900"></div>
-             </div>
-             
-             <div className="max-w-7xl mx-auto h-full px-6 flex items-end pb-8 relative z-10">
-                 {/* Optional content over the banner */}
-             </div>
+    <div className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+      <div className="max-w-5xl mx-auto px-6 pt-16 md:pt-24 pb-14">
+        <div className="max-w-3xl">
+          <p className="text-xs font-mono uppercase tracking-[.2em] text-blue-600 dark:text-blue-400 mb-5">THANG NGUYEN / AI & DATA SCIENCE</p>
+          <h1 className="text-4xl md:text-6xl font-semibold tracking-[-.045em] leading-[1.08]"> {vi ? 'Học sâu. Nghiên cứu có phương pháp. Xây dựng có trách nhiệm.' : 'Learn deeply. Research rigorously. Build responsibly.'}</h1>
+          <p className="mt-6 text-lg md:text-xl leading-8 text-gray-600 dark:text-gray-300">{text.intro}</p>
+          <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
+            <span>{text.role}</span><span>·</span><span>{text.location}</span><span>·</span><span className="text-emerald-700 dark:text-emerald-400">{text.status}</span>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href="#research" className="px-4 py-2.5 bg-gray-950 dark:bg-white text-white dark:text-gray-950 text-sm font-medium rounded-md hover:opacity-80">{vi?'Khám phá nghiên cứu':'Explore research'}</a>
+            <a href="#writing" className="px-4 py-2.5 border border-gray-300 dark:border-gray-700 text-sm rounded-md hover:border-blue-500">{vi?'Đọc blog':'Read the blog'}</a>
+            <a href="https://github.com/6jffc" target="_blank" rel="noreferrer" className="px-4 py-2.5 text-sm text-blue-700 dark:text-blue-400 hover:underline">GitHub ↗</a>
+          </div>
         </div>
-
-        <div className="max-w-7xl mx-auto px-6 py-12">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-                
-                {/* --- LEFT COLUMN (MAIN CONTENT) --- */}
-                <div className="lg:col-span-3 space-y-16">
-                    
-                    {/* Section: Profile Header */}
-                    <section>
-                        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8 font-sans border-b border-gray-200 dark:border-gray-700 pb-4">{t.profile.header}</h1>
-                        
-                        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4 font-sans">{t.profile.titles}</h2>
-                        <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300 font-serif leading-relaxed">
-                            {t.profile.distinctions.map((item, idx) => (
-                                <li key={idx}>{item}</li>
-                            ))}
-                        </ul>
-                    </section>
-
-                    {/* Section: Biography */}
-                    <section>
-                        <div className="flex justify-between items-baseline mb-6 border-b border-gray-200 dark:border-gray-700 pb-2">
-                             <h2 className="text-2xl font-bold text-gray-900 dark:text-white font-sans">{t.profile.biography}</h2>
-                             <a href="#" className="text-sm font-bold text-academic-accent dark:text-blue-400 hover:underline font-sans uppercase tracking-wider">
-                                <i className="fas fa-file-pdf mr-2"></i>{t.profile.downloadCv}
-                             </a>
-                        </div>
-                        
-                        <div className="space-y-8 font-serif text-gray-700 dark:text-gray-300 leading-relaxed text-justify">
-                            <div>
-                                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 font-sans">{t.profile.shortVersion}</h3>
-                                <p>
-                                    {language === 'en' 
-                                     ? "Nguyen Huu Thang is an AI Researcher and MLOps Engineer specializing in bridging the gap between theoretical Deep Learning and scalable, real-world applications. He is the Founder of Neural Nexus and a Ph.D. Candidate focusing on Computer Vision and Edge Intelligence."
-                                     : "Nguyễn Hữu Thắng là một Nhà nghiên cứu AI và Kỹ sư MLOps chuyên về việc thu hẹp khoảng cách giữa Deep Learning lý thuyết và các ứng dụng thực tế có thể mở rộng. Anh là Người sáng lập Neural Nexus và là Nghiên cứu sinh Tiến sĩ tập trung vào Thị giác Máy tính và Trí tuệ biên."}
-                                </p>
-                            </div>
-
-                            <div>
-                                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2 font-sans">{t.profile.mediumVersion}</h3>
-                                <p>
-                                    {language === 'en' 
-                                     ? "Recognized for his contributions to efficient edge inference and automated data pipelines, Nguyen Huu Thang works at the intersection of academic research and engineering. His work primarily addresses the challenges of deploying heavy Vision Transformers (ViTs) in resource-constrained environments."
-                                     : "Được công nhận vì những đóng góp cho suy luận biên hiệu quả và đường ống dữ liệu tự động, Nguyễn Hữu Thắng làm việc tại giao điểm của nghiên cứu học thuật và kỹ thuật. Công việc của anh chủ yếu giải quyết các thách thức trong việc triển khai Vision Transformers (ViTs) nặng nề trong môi trường hạn chế tài nguyên."}
-                                </p>
-                                <p className="mt-4">
-                                     {language === 'en'
-                                      ? "He holds a Master's in Artificial Intelligence and has published key papers in workshops at CVPR and ICDE. Beyond research, Thang is an active open-source contributor and educator, aiming to democratize access to advanced AI tools through his platform, Neural Nexus. He actively consults for startups looking to build robust MLOps infrastructure."
-                                      : "Anh có bằng Thạc sĩ về Trí tuệ Nhân tạo và đã xuất bản các bài báo chính tại các hội thảo CVPR và ICDE. Ngoài nghiên cứu, Thắng là một người đóng góp mã nguồn mở tích cực và là nhà giáo dục, với mục tiêu dân chủ hóa việc tiếp cận các công cụ AI tiên tiến thông qua nền tảng của mình, Neural Nexus. Anh tích cực tư vấn cho các công ty khởi nghiệp muốn xây dựng cơ sở hạ tầng MLOps mạnh mẽ."}
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Section: Selected Publications */}
-                    <section>
-                         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 font-sans border-b border-gray-200 dark:border-gray-700 pb-2">{t.profile.publications}</h2>
-                         <div className="space-y-6">
-                            {PUBLICATIONS.map((pub, idx) => (
-                                <div key={idx} className="font-serif text-gray-800 dark:text-gray-300">
-                                    <p>
-                                        <span className="font-bold">Nguyen, H.T.</span>, et al. ({pub.year}). "{pub.title}". In: <span className="italic">{pub.venue}</span>.
-                                    </p>
-                                    <div className="mt-1">
-                                        <a href="#" className="text-sm text-academic-accent dark:text-blue-400 hover:underline font-sans mr-4">{t.profile.readArxiv}</a>
-                                        <a href="#" className="text-sm text-academic-accent dark:text-blue-400 hover:underline font-sans">{t.profile.readPdf}</a>
-                                    </div>
-                                </div>
-                            ))}
-                         </div>
-                    </section>
-
-                    {/* Section: Education */}
-                    <section>
-                        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 font-sans border-b border-gray-200 dark:border-gray-700 pb-2">{t.profile.education}</h2>
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left border-collapse">
-                                <tbody>
-                                    {EDUCATION.map((edu, idx) => (
-                                        <tr key={idx} className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                                            <td className="py-3 px-2 font-mono text-sm text-gray-500 dark:text-gray-400 w-32 align-top">{edu.year}</td>
-                                            <td className="py-3 px-2 font-serif text-gray-800 dark:text-gray-200 align-top">
-                                                <div className="font-bold">{edu.degree}</div>
-                                                <div className="text-gray-600 dark:text-gray-400">{edu.institution}</div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-
-                </div>
-
-                {/* --- RIGHT COLUMN (SIDEBAR) --- */}
-                <Sidebar />
-            </div>
+      </div>
+      <div className="border-y border-gray-200 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-900/50">
+        <div className="max-w-5xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-10">
+          <div><SectionTitle eyebrow="01 / FOCUS" title={text.focus} note={text.focusNote}/></div>
+          <div className="grid sm:grid-cols-2 gap-x-8 gap-y-7">{text.areas.map(([title,desc])=><div key={title}><h3 className="font-semibold text-base">{title}</h3><p className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-400">{desc}</p></div>)}</div>
         </div>
+      </div>
+      <section id="research" className="max-w-5xl mx-auto px-6 py-16">
+        <SectionTitle eyebrow="02 / ON THE WORKBENCH" title={text.now} note={text.nowNote}/>
+        <div className="divide-y divide-gray-200 dark:divide-gray-800 border-y border-gray-200 dark:border-gray-800">
+          {text.projects.map(([title,desc,status,href],i)=><div key={title} className="py-5 grid md:grid-cols-[42px_1fr_auto] gap-3 md:gap-5 items-start">
+            <span className="font-mono text-xs text-gray-400 pt-1">0{i+1}</span><div><h3 className="font-semibold">{title}</h3><p className="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400 max-w-2xl">{desc}</p>{href && <a className="inline-block mt-2 text-sm text-blue-700 dark:text-blue-400 hover:underline" href={href}> {vi?'Mở research page':'Open research page'} ↗</a>}</div><span className="text-[11px] font-mono uppercase tracking-wide text-gray-500 border border-gray-200 dark:border-gray-700 rounded px-2 py-1 whitespace-nowrap">{status}</span>
+          </div>)}
+        </div>
+      </section>
+      <section id="writing" className="bg-gray-50 dark:bg-gray-900/60 border-y border-gray-200 dark:border-gray-800">
+        <div className="max-w-5xl mx-auto px-6 py-16">
+          <SectionTitle eyebrow="03 / NOTEBOOK" title={text.writing} note={text.writingNote}/>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">{text.categories.map(([title,desc],i)=><a key={title} href="#blog" className="p-5 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 hover:border-blue-400 transition-colors"><span className="text-xs font-mono text-gray-400">0{i+1}</span><h3 className="mt-3 font-semibold">{title}</h3><p className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-400">{desc}</p></a>)}</div>
+          <a id="blog" href="#blog" className="inline-block mt-6 text-sm text-blue-700 dark:text-blue-400 hover:underline">{vi?'Đi tới mục Blog trong thanh điều hướng':'Open Writing from the navigation'} ↗</a>
+        </div>
+      </section>
+      <section className="max-w-5xl mx-auto px-6 py-16">
+        <SectionTitle eyebrow="04 / METHOD" title={text.method} note={text.methodNote}/>
+        <div className="grid md:grid-cols-2 gap-x-12 gap-y-4">{text.principles.map((p,i)=><div key={p} className="flex gap-4 py-3 border-b border-gray-100 dark:border-gray-800"><span className="font-mono text-xs text-blue-600 dark:text-blue-400 pt-1">0{i+1}</span><p className="text-sm leading-6 text-gray-700 dark:text-gray-300">{p}</p></div>)}</div>
+      </section>
+      <section className="bg-gray-950 text-white dark:bg-black">
+        <div className="max-w-5xl mx-auto px-6 py-14 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+          <div><p className="text-xs font-mono tracking-[.18em] uppercase text-blue-300 mb-3">05 / CONTACT</p><h2 className="text-2xl md:text-3xl font-semibold">{text.connect}</h2><p className="mt-3 text-sm text-gray-300 max-w-xl">{text.connectNote}</p></div>
+          <div className="flex flex-wrap gap-5 text-sm">{text.links.map(([label,url])=><a key={label} href={url} target={url.startsWith('mailto:')?undefined:'_blank'} rel="noreferrer" className="text-blue-300 hover:text-white underline underline-offset-4">{label} ↗</a>)}</div>
+        </div>
+      </section>
     </div>
   );
 };
