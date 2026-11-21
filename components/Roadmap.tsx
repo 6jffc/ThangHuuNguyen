@@ -1,60 +1,20 @@
 import React from 'react';
-import { RESEARCHERS } from '../constants';
 import { Sidebar } from './Sidebar';
 import { useThemeLanguage } from '../contexts/ThemeLanguageContext';
 
-const CategorySection: React.FC<{ title: string, items: typeof RESEARCHERS }> = ({ title, items }) => {
-  if (items.length === 0) return null;
-  return (
-    <div className="mb-12">
-      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 font-sans border-l-4 border-academic-accent dark:border-blue-500 pl-3">{title}</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {items.map((item, idx) => (
-          <a 
-            key={idx} 
-            href={item.url} 
-            target="_blank" 
-            rel="noreferrer"
-            className="group block bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:border-academic-accent dark:hover:border-blue-400 transition-all duration-200 hover:shadow-sm"
-          >
-            <div className="flex justify-between items-start mb-3">
-               <h4 className="font-bold text-base text-gray-800 dark:text-gray-100 group-hover:text-academic-accent dark:group-hover:text-blue-400 transition-colors font-serif">{item.name}</h4>
-               <i className="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-academic-accent dark:group-hover:text-blue-400 text-xs"></i>
-            </div>
-            <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 font-sans">{item.role}</p>
-            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-serif line-clamp-3">{item.description}</p>
-          </a>
-        ))}
-      </div>
-    </div>
-  );
-};
-
+const tracks = [
+ {n:'01',title:'Mathematical foundations',vi:'Nền tảng toán học',desc:'Linear algebra, calculus, probability, statistics, optimization, and discrete mathematics.',viDesc:'Đại số tuyến tính, giải tích, xác suất, thống kê, tối ưu hóa và toán rời rạc.',resources:[['Mathematics for Machine Learning','https://mml-book.github.io/'],['Statlect — Probability','https://www.statlect.com/']]},
+ {n:'02',title:'Core machine learning',vi:'Machine Learning cốt lõi',desc:'Supervised learning, generalization, regularization, model selection, calibration, and evaluation.',viDesc:'Học có giám sát, khả năng tổng quát hóa, regularization, chọn mô hình, calibration và đánh giá.',resources:[['Scikit-learn User Guide','https://scikit-learn.org/stable/user_guide.html'],['The Elements of Statistical Learning','https://hastie.su.domains/ElemStatLearn/']]},
+ {n:'03',title:'Deep learning & computer vision',vi:'Deep Learning & Computer Vision',desc:'Backpropagation, CNNs, attention, Transformers, representation learning, detection and segmentation.',viDesc:'Backpropagation, CNN, attention, Transformer, representation learning, detection và segmentation.',resources:[['Dive into Deep Learning','https://d2l.ai/'],['PyTorch Tutorials','https://pytorch.org/tutorials/']]},
+ {n:'04',title:'Research literacy',vi:'Năng lực nghiên cứu',desc:'Paper reading, problem formulation, baselines, experimental design, ablation, uncertainty and scientific writing.',viDesc:'Đọc paper, xác định bài toán, baseline, thiết kế thí nghiệm, ablation, bất định và viết khoa học.',resources:[['Papers with Code','https://paperswithcode.com/'],[' arXiv — Computer Science','https://arxiv.org/list/cs/recent']]},
+ {n:'05',title:'AI systems & MLOps',vi:'Hệ thống AI & MLOps',desc:'Data and model pipelines, experiment tracking, testing, deployment, monitoring, and responsible operation.',viDesc:'Pipeline dữ liệu/mô hình, theo dõi thí nghiệm, kiểm thử, triển khai, giám sát và vận hành có trách nhiệm.',resources:[['Made With ML','https://madewithml.com/'],['MLflow Documentation','https://mlflow.org/docs/latest/']]},
+ {n:'06',title:'LLMs, agents & multimodal AI',vi:'LLM, Agents & AI đa phương thức',desc:'Tokenization, Transformers, retrieval, tool use, agent evaluation, orchestration, and multimodal learning.',viDesc:'Tokenization, Transformer, retrieval, sử dụng công cụ, đánh giá agent, orchestration và học đa phương thức.',resources:[['The Illustrated Transformer','https://jalammar.github.io/illustrated-transformer/'],['Hugging Face Course','https://huggingface.co/learn']]},
+];
 export const Roadmap: React.FC = () => {
-  const { t } = useThemeLanguage();
-
-  return (
-    <div className="w-full bg-white dark:bg-gray-900 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-                
-                {/* --- LEFT COLUMN (MAIN CONTENT) --- */}
-                <div className="lg:col-span-3">
-                    <header className="mb-12 border-b border-gray-200 dark:border-gray-700 pb-8">
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 font-sans">{t.roadmap.header}</h1>
-                        <p className="text-gray-500 dark:text-gray-400 font-serif italic">{t.roadmap.subHeader}</p>
-                    </header>
-
-                    <CategorySection title={t.roadmap.godfathers} items={RESEARCHERS.filter(r => r.category === 'Godfather')} />
-                    <CategorySection title={t.roadmap.blogs} items={RESEARCHERS.filter(r => r.category === 'Blogger')} />
-                    <CategorySection title={t.roadmap.educators} items={RESEARCHERS.filter(r => r.category === 'Educator')} />
-                    <CategorySection title={t.roadmap.labs} items={RESEARCHERS.filter(r => r.category === 'Researcher' || r.category === 'Lab')} />
-                </div>
-
-                {/* --- RIGHT COLUMN (SIDEBAR) --- */}
-                <Sidebar />
-            </div>
-        </div>
-    </div>
-  );
+ const {language}=useThemeLanguage(); const vi=language==='vi';
+ return <div className="bg-white dark:bg-gray-950 min-h-screen"><div className="max-w-5xl mx-auto px-6 py-12 md:py-16 grid lg:grid-cols-[minmax(0,1fr)_220px] gap-12"><main>
+  <header className="pb-8 border-b border-gray-200 dark:border-gray-800"><p className="text-xs font-mono uppercase tracking-[.18em] text-blue-600 dark:text-blue-400 mb-3">RESEARCH MAP / CONTINUOUS LEARNING</p><h1 className="text-4xl font-semibold tracking-tight">{vi?'Bản đồ học tập & Nghiên cứu AI':'AI Learning & Research Map'}</h1><p className="mt-3 max-w-2xl text-sm leading-7 text-gray-600 dark:text-gray-400">{vi?'Một bản đồ mở để kết nối nền tảng toán học, thuật toán, nghiên cứu thực nghiệm và kỹ thuật hệ thống. Đây là lộ trình phát triển cá nhân, không phải danh sách chứng chỉ.':'An evolving map connecting mathematical foundations, algorithms, empirical research, and systems engineering. This is a personal development roadmap, not a list of credentials.'}</p></header>
+  <div className="divide-y divide-gray-200 dark:divide-gray-800">{tracks.map(t=><section key={t.n} className="py-7 grid sm:grid-cols-[48px_1fr] gap-4"><span className="font-mono text-sm text-blue-600 dark:text-blue-400">{t.n}</span><div><h2 className="text-xl font-semibold">{vi?t.vi:t.title}</h2><p className="mt-2 text-sm leading-7 text-gray-600 dark:text-gray-400">{vi?t.viDesc:t.desc}</p><div className="flex flex-wrap gap-x-5 gap-y-2 mt-4">{t.resources.map(([label,url])=><a key={url} href={url} target="_blank" rel="noreferrer" className="text-sm text-blue-700 dark:text-blue-400 hover:underline">{label} ↗</a>)}</div></div></section>)}</div>
+  <div className="mt-8 border border-gray-200 dark:border-gray-800 p-5"><h3 className="font-semibold">{vi?'Vòng lặp nghiên cứu':'The research loop'}</h3><p className="mt-2 text-sm leading-7 text-gray-600 dark:text-gray-400">{vi?'Đọc → đặt câu hỏi → kiểm tra dữ liệu → xây baseline → thiết kế thí nghiệm → phân tích lỗi → viết lại → chia sẻ mã nguồn và giới hạn.':'Read → formulate a question → inspect data → establish a baseline → design experiments → analyze errors → write → share code and limitations.'}</p></div>
+ </main><Sidebar/></div></div>;
 };
