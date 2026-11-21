@@ -69,3 +69,16 @@ export const BLOG_POSTS: BlogPost[] = [
     )
   }
 ];
+
+export const RESEARCHERS = [
+  { name: 'Geoffrey Hinton', role: 'Deep learning research', url: 'https://www.cs.toronto.edu/~hinton/', description: 'Foundational work in neural networks, representation learning, and deep learning.', category: 'Godfather' as const },
+  { name: 'Yann LeCun', role: 'Machine learning and computer vision', url: 'https://yann.lecun.com/', description: 'Research on convolutional networks, self-supervised learning, and world models.', category: 'Godfather' as const },
+  { name: 'Yoshua Bengio', role: 'Deep learning and AI research', url: 'https://yoshuabengio.org/', description: 'Research on representation learning, deep learning, and responsible AI.', category: 'Godfather' as const },
+  { name: 'Andrej Karpathy', role: 'AI engineering and education', url: 'https://karpathy.ai/', description: 'Practical explanations of neural networks, language models, and AI engineering.', category: 'Blogger' as const },
+  { name: 'Lilian Weng', role: 'Research writing', url: 'https://lilianweng.github.io/', description: 'Detailed technical articles on reinforcement learning, language models, and AI agents.', category: 'Blogger' as const },
+  { name: 'Jay Alammar', role: 'Visual explanations', url: 'https://jalammar.github.io/', description: 'Visual introductions to Transformers, embeddings, and modern NLP systems.', category: 'Blogger' as const },
+  { name: 'Chip Huyen', role: 'Machine learning systems', url: 'https://chiphuyen.com/', description: 'Writing on ML systems design, deployment, data, and production machine learning.', category: 'Educator' as const },
+  { name: 'Chris Olah', role: 'Mechanistic interpretability', url: 'https://colah.github.io/', description: 'Intuitive and technical explanations of neural network representations.', category: 'Researcher' as const },
+  { name: 'OpenAI Research', role: 'Research laboratory', url: 'https://openai.com/research/', description: 'Research publications and updates across AI models and systems.', category: 'Lab' as const },
+  { name: 'Google DeepMind', role: 'Research laboratory', url: 'https://deepmind.google/discover/blog/', description: 'Research updates across machine learning, science, and AI systems.', category: 'Lab' as const }
+];
