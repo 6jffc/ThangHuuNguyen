@@ -32,7 +32,7 @@ export const Blog: React.FC = () => {
               <article className="max-w-none pt-8">
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-gray-500 mb-7"><span>{selectedPost.date}</span><span>·</span><span>{selectedPost.category}</span><span>·</span><span>{vi?'Ghi chú cá nhân':'Personal note'}</span></div>
                 <h2 className="text-3xl md:text-4xl font-semibold tracking-tight leading-tight mb-8">{selectedPost.title}</h2>
-                <div className="prose prose-gray dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-a:text-blue-600 max-w-none prose-p:leading-8 prose-li:leading-7">{selectedPost.content}</div>
+                <div className="research-prose pt-1">{selectedPost.content}</div>
                 <div className="mt-12 pt-6 border-t border-gray-200 dark:border-gray-800 flex items-center justify-between gap-4">
                   <p className="text-xs text-gray-500">{vi?'Bài viết phản ánh hiểu biết tại thời điểm viết; nội dung sẽ được cập nhật khi có thêm bằng chứng.':'This note reflects the understanding at the time of writing and may be revised as evidence evolves.'}</p>
                   <div className="flex gap-3 shrink-0"><a className="text-sm text-blue-700 dark:text-blue-400 hover:underline" href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`} target="_blank" rel="noreferrer">Share ↗</a><button onClick={()=>setSelectedPost(null)} className="text-sm hover:underline">{vi?'Quay lại':'Back'}</button></div>
