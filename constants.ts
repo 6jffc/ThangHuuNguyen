@@ -1,261 +1,71 @@
 import React from 'react';
-import { ResearcherProfile, Project, NewsUpdate, Publication, AppRoute, BlogPost } from './types';
+import { BlogPost } from './types';
 
-export const RESEARCHERS: ResearcherProfile[] = [
-  {
-    name: "Geoffrey Hinton",
-    role: "Nobel Laureate / Prof @ U of Toronto",
-    url: "https://www.cs.toronto.edu/~hinton/",
-    description: "The 'Godfather of AI'. Key figure in Backpropagation and Neural Networks.",
-    category: 'Godfather'
-  },
-  {
-    name: "Yann LeCun",
-    role: "Chief AI Scientist @ Meta",
-    url: "http://yann.lecun.com",
-    description: "Pioneer of CNNs. Frequently debates AI direction (World Models vs LLMs).",
-    category: 'Godfather'
-  },
-  {
-    name: "Yoshua Bengio",
-    role: "Director @ Mila",
-    url: "https://yoshuabengio.org",
-    description: "Focuses on AI Safety, foundational research, and deep learning architectures.",
-    category: 'Godfather'
-  },
-  {
-    name: "Andrej Karpathy",
-    role: "Founder / Ex-Tesla / Ex-OpenAI",
-    url: "https://karpathy.github.io",
-    description: "Legendary engineer. Famous for 'Unreasonable Effectiveness of RNNs' and simplifying complex concepts.",
-    category: 'Blogger'
-  },
-  {
-    name: "Lilian Weng",
-    role: "VP Research @ OpenAI",
-    url: "https://lilianweng.github.io",
-    description: "Her blog is the definitive textbook for LLMs, Agents, and Generative AI.",
-    category: 'Blogger'
-  },
-  {
-    name: "Jay Alammar",
-    role: "Visual Educator",
-    url: "https://jalammar.github.io",
-    description: "Best visual explanations for Transformers, BERT, and Stable Diffusion.",
-    category: 'Blogger'
-  },
-  {
-    name: "Andrew Ng",
-    role: "Founder DeepLearning.AI",
-    url: "https://www.andrewng.org",
-    description: "The educator of the AI world. Focuses on career guidance and market trends.",
-    category: 'Educator'
-  },
-  {
-    name: "Fei-Fei Li",
-    role: "Prof @ Stanford",
-    url: "https://profiles.stanford.edu/fei-fei-li",
-    description: "Creator of ImageNet. Pioneer of Human-centered AI.",
-    category: 'Educator'
-  },
-  {
-    name: "Chip Huyen",
-    role: "MLOps Expert",
-    url: "https://chiphuyen.com",
-    description: "Deep expertise in Real-time ML and Machine Learning System Design.",
-    category: 'Educator'
-  },
-  {
-    name: "Chris Olah",
-    role: "Interpretability Researcher",
-    url: "https://colah.github.io",
-    description: "Focuses on understanding how neural networks 'think'.",
-    category: 'Researcher'
-  },
-  {
-    name: "OpenAI Research",
-    role: "Research Lab",
-    url: "https://openai.com/research",
-    description: "Home of GPT-4, Sora, and O1.",
-    category: 'Lab'
-  },
-  {
-    name: "Google DeepMind",
-    role: "Research Lab",
-    url: "https://deepmind.google/discover/blog",
-    description: "Pioneers of AlphaGo, AlphaFold, and Gemini.",
-    category: 'Lab'
-  }
-];
+const paragraph = (text: string) => React.createElement('p', null, text);
+const heading = (text: string) => React.createElement('h2', null, text);
+const code = (text: string) => React.createElement('pre', null, React.createElement('code', null, text));
+const list = (items: string[]) => React.createElement('ul', null, ...items.map((item,i)=>React.createElement('li',{key:i},item)));
 
-export const NEWS: NewsUpdate[] = [
-  {
-    date: "Oct 2025",
-    content: "Participating in Kaggle Competition 'Predicting Road Accident Risk'."
-  },
-  {
-    date: "June 2025",
-    content: "Started research on ADHD prediction using fMRI connectivity matrices."
-  },
-  {
-    date: "Jan 2025",
-    content: "Published preliminary findings on automated ETL pipelines for job market analysis."
-  }
-];
-
-export const PROJECTS: Project[] = [
-  {
-    title: "Predicting Credit Card Fraud — S6E11",
-    description: "A reproducible Kaggle research workspace covering fraud-risk formulation, EDA, confusion matrix, ROC-AUC, leakage-safe validation, baseline modeling and experiment tracking.",
-    tags: ["Kaggle", "Fraud Detection", "ROC-AUC", "Scikit-learn", "Research"],
-    link: "https://6jffc.github.io/ThangHuuNguyen/projects/credit-card-fraud/"
-  },
-  {
-    title: "ADHD Prediction via fMRI",
-    description: "Applied Deep Learning to predict ADHD using demographic data and fMRI connectivity matrices.",
-    tags: ["Medical AI", "Deep Learning", "Python"]
-  },
-  {
-    title: "Road Accident Risk Prediction",
-    description: "A Kaggle competition project analyzing traffic factors to forecast accident risks.",
-    tags: ["Data Analysis", "Scikit-learn", "XGBoost"]
-  },
-  {
-    title: "Automated JD Scraper Pipeline",
-    description: "Built an end-to-end pipeline to scrape and automatically update job descriptions from web sources.",
-    tags: ["Data Engineering", "Automation", "ETL"]
-  },
-  {
-    title: "Vision Studio",
-    description: "Interactive image editing workbench powered by Gemini 2.5 Flash.",
-    tags: ["GenAI", "Computer Vision", "React"]
-  },
-  {
-    title: "Motion Lab",
-    description: "Generative video synthesis using Veo 3.1 Fast Generate Preview.",
-    tags: ["GenAI", "Video", "Veo"]
-  },
-  {
-    title: "Live Nexus",
-    description: "Real-time multimodal conversational interface using Gemini Native Audio.",
-    tags: ["WebSockets", "Audio Processing", "Gemini 2.5"]
-  }
-];
-
-export const PUBLICATIONS: Publication[] = [
-  {
-    year: "2024",
-    title: "Efficient Edge Inference for Vision Transformers in Resource-Constrained Environments",
-    venue: "Proceedings of CVPR Workshops"
-  },
-  {
-    year: "2023",
-    title: "Comparative Analysis of Contrastive Learning Methods for Medical Imaging",
-    venue: "IEEE International Symposium on Biomedical Imaging"
-  },
-  {
-    year: "2022",
-    title: "Automated Data Pipeline Architectures for Real-time Anomaly Detection",
-    venue: "International Conference on Data Engineering (ICDE)"
-  }
-];
-
-export const EDUCATION = [
-  {
-    year: "2022 - Present",
-    degree: "Ph.D. Candidate in Computer Science",
-    institution: "University of Technology"
-  },
-  {
-    year: "2020 - 2022",
-    degree: "M.Sc. in Artificial Intelligence",
-    institution: "Institute of Advanced Technology"
-  },
-  {
-    year: "2016 - 2020",
-    degree: "B.Eng. in Software Engineering, Honours",
-    institution: "National University"
-  }
-];
-
-export const DISTINCTIONS = [
-  "Top 1% Kaggle Grandmaster (2024)",
-  "Best Paper Award, ICDE Workshop (2023)",
-  "Open Source Contributor of the Year (Neural Nexus) (2022)",
-  "Google Cloud Certified Professional Machine Learning Engineer",
-  "Reviewer for CVPR, ICCV, and NeurIPS Workshops"
-];
-
-// --- BLOG POST CONTENT ---
 export const BLOG_POSTS: BlogPost[] = [
   {
-    id: "misunderstood-children",
-    title: "Có những đứa trẻ đáng thương nhưng bị đáng ghét",
-    date: "Oct 2025",
-    category: "Reflections",
-    image: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=2566&auto=format&fit=crop",
-    excerpt: "Có những người nói rằng “Đứa trẻ này thật là hư” họ có biết được câu nói đó sẽ theo các em suốt đời? Một góc nhìn về sự bao dung với trẻ thơ.",
-    content: React.createElement(React.Fragment, null, 
-      React.createElement("div", { className: "space-y-6 font-serif leading-relaxed text-gray-800 dark:text-gray-300" },
-        React.createElement("p", { className: "italic text-sm text-gray-500" }, "By: ThangNguyen"),
-        React.createElement("p", null, "Có những người nói rằng “Đứa trẻ này thật là hư” họ có biết được câu nói đó sẽ theo các em suốt đời. Chính các em là nạn nhân của xã hội đánh giá ‘vội vàng’, vội vàng phán xét, vội vàng khép mình lại với những vẻ đẹp không trọn vẹn. Ta cũng đã từng là những đứa trẻ nên hãy bao dung cho người trẻ bạn nhé!"),
-        React.createElement("p", null, "Trước đây tôi có ở trọ cạnh 1 trường mẫu giáo trẻ em, khi có một em bé chập chững bước ra khi thấy tôi bên ngoài cửa, có một giọng nói của giáo viên vọng ra “con mà ra đó là chú bắt đi á”, tôi nghe câu nói xong hết hồn thật, tại sao người lớn kì vậy?, dạy trẻ em nghĩ xấu về người khác, chính những bước chân chập chững đó sau này cũng sẽ bảo rằng “ì tớ khép mình lại với thế giới này còn hơn, đi ra ngoài kia người xấu nhiều lắm”."),
-        React.createElement("p", null, "Các em không xấu nhưng môi trường nơi các em đang ở đang xấu, chẳng có từ giấy trắng nào sinh ra đã đen chỉ có tác động từ bên ngoài mới khiến nó đen đi mà thôi."),
-        React.createElement("h3", { className: "text-xl font-bold text-gray-900 dark:text-white font-sans mt-8 mb-4" }, "Đứa trẻ bên trong bạn"),
-        React.createElement("p", null, "Mỗi người chúng ta cũng có và từng là 1 đứa trẻ, bạn nghĩ nó đã chết ở cái độ tuổi nào ư?"),
-        React.createElement("div", { className: "border-l-4 border-academic-accent pl-4 italic text-gray-600 dark:text-gray-400 my-4" }, 
-            "Chính suy nghĩ của bạn đang giết chết nó đấy, đứa trẻ trong bạn là sự hồn nhiên, dám đứng dạy sau những lần vấp ngả, dám thành thật đó, đừng để môi trường cuộc sống quá khắc nghiệt mà bạn bị chết đi tâm hồn trẻ ấy nha."
-        )
-      )
+    id: 'roc-auc-ranking-not-threshold',
+    title: 'ROC-AUC is a ranking metric, not a decision threshold',
+    date: 'Draft · 2026',
+    category: 'Machine Learning',
+    image: '',
+    excerpt: 'A first-principles explanation of score thresholds, TPR, FPR, pairwise ranking, and what ROC-AUC can—and cannot—tell us about a fraud detector.',
+    content: React.createElement(React.Fragment, null,
+      paragraph('A binary classifier often produces a score rather than a final decision. For a transaction x, the model may return s(x) = P(Y = 1 | X = x). A threshold τ converts that score into a decision: predict fraud when s(x) ≥ τ. The threshold is a policy choice; the score is the model output.'),
+      heading('The confusion matrix changes with the threshold'),
+      paragraph('True positives (TP) are fraud cases correctly flagged. False positives (FP) are legitimate transactions incorrectly flagged. False negatives (FN) are missed fraud, and true negatives (TN) are legitimate transactions correctly cleared.'),
+      code('TPR = TP / (TP + FN)\nFPR = FP / (FP + TN)\nPrecision = TP / (TP + FP)'),
+      paragraph('Lowering the threshold usually increases both the number of flagged transactions and the true-positive rate. It can also increase the false-positive rate. ROC makes this trade-off visible across thresholds by plotting TPR against FPR.'),
+      heading('AUC has a pairwise interpretation'),
+      paragraph('For a randomly selected positive example and a randomly selected negative example, ROC-AUC is the probability that the positive example receives a higher score, with ties receiving half credit. In a finite dataset:'),
+      code('AUC = (wins + 0.5 × ties) / (P × N)'),
+      paragraph('This interpretation explains why ROC-AUC evaluates ranking quality rather than one operating threshold. AUC does not tell a bank how many customers will be blocked at a chosen threshold, nor does it encode the relative costs of false declines and missed fraud.'),
+      heading('What I would report in an experiment'),
+      list(['The validation protocol and whether it matches the test setting.','ROC-AUC with fold-level scores, not only one rounded number.','A threshold-specific confusion matrix chosen using a stated business objective.','Precision-recall metrics and calibration when class imbalance or probability quality matters.','The uncertainty, limitations, and any possible data leakage.']),
+      paragraph('For imbalanced fraud detection, ROC-AUC is useful for ranking comparisons, but it should not be the only lens. Operational decisions require costs, capacity constraints, customer impact, and a threshold selected without peeking at the final test labels.')
     )
   },
   {
-    id: "icde-2022-pipeline",
-    title: "Automated Data Pipeline Architectures for Real-time Anomaly Detection",
-    date: "May 2022",
-    category: "Data Engineering",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop",
-    excerpt: "A deep dive into constructing low-latency distributed systems for detecting anomalies in high-throughput data streams using Apache Flink and Kafka, as presented at ICDE 2022.",
-    content: React.createElement(React.Fragment, null, 
-      React.createElement("div", { className: "space-y-6 font-serif leading-relaxed text-gray-800 dark:text-gray-300" },
-        React.createElement("p", null, 
-          React.createElement("strong", null, "Abstract: "),
-          "In the era of big data, the ability to detect anomalies in real-time streams is critical for applications ranging from fraud detection to industrial system monitoring. This article explores the architecture proposed in our ICDE 2022 paper, focusing on a distributed pipeline that balances high throughput with millisecond-level latency."
-        ),
-        React.createElement("h3", { className: "text-xl font-bold text-gray-900 dark:text-white font-sans mt-8 mb-4" }, "The Core Challenge"),
-        React.createElement("p", null, "Traditional batch processing methods (like Hadoop MapReduce) introduce significant delays, making them unsuitable for time-critical interventions. On the other hand, naive stream processing often lacks the state management required to detect complex, context-dependent anomalies."),
-        React.createElement("p", null, "Our research tackles the specific problem of detecting multi-variate anomalies in sensor networks where individual data points might appear normal, but their correlation over a sliding window indicates a failure."),
-        React.createElement("h3", { className: "text-xl font-bold text-gray-900 dark:text-white font-sans mt-8 mb-4" }, "Proposed Architecture"),
-        React.createElement("div", { className: "bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 my-6" },
-          React.createElement("h4", { className: "font-bold text-sm text-gray-500 dark:text-gray-400 uppercase mb-2" }, "System Components"),
-          React.createElement("ul", { className: "list-disc pl-5 space-y-2" },
-            React.createElement("li", null, React.createElement("strong", null, "Ingestion Layer:"), " Apache Kafka partitions streams by Sensor ID to ensure data locality."),
-            React.createElement("li", null, React.createElement("strong", null, "Processing Layer:"), " Apache Flink uses KeyedProcessFunctions to maintain stateful windows (tumbling and sliding) for feature extraction."),
-            React.createElement("li", null, React.createElement("strong", null, "Inference Layer:"), " A lightweight Isolation Forest model, trained offline and broadcasted to Flink task slots for low-latency scoring.")
-          )
-        ),
-        React.createElement("h3", { className: "text-xl font-bold text-gray-900 dark:text-white font-sans mt-8 mb-4" }, "Key Findings"),
-        React.createElement("p", null, "We benchmarked the system against Spark Streaming and found that Flink's event-time processing model significantly reduced false positives caused by out-of-order events. The pipeline sustained a throughput of 500,000 events/second with a p99 latency of under 45ms."),
-        React.createElement("p", null, "This architecture demonstrates that it is possible to bring sophisticated ML models to the edge of the data stream without sacrificing consistency or scalability.")
-      )
+    id: 'leakage-safe-validation',
+    title: 'Validation is part of the experiment, not just a score',
+    date: 'Draft · 2026',
+    category: 'Research Methods',
+    image: '',
+    excerpt: 'Why a high validation score can be misleading, how preprocessing leaks information, and how to build a fair model comparison.',
+    content: React.createElement(React.Fragment, null,
+      paragraph('A validation score is evidence about how a modeling procedure may perform on unseen data under a particular sampling assumption. It is not an intrinsic property of a model. Change the split, preprocessing, target definition, or time horizon and the meaning of the score can change.'),
+      heading('Where leakage enters'),
+      paragraph('A common mistake is to fit an imputer, scaler, feature selector, or encoder on the full dataset before splitting. The validation fold then influences the representation used to train the model. Even when labels are not directly exposed, information from the validation distribution has crossed the boundary.'),
+      code('Pipeline([\n  ("imputer", SimpleImputer(strategy="median")),\n  ("scaler", StandardScaler()),\n  ("model", LogisticRegression())\n])'),
+      paragraph('A pipeline lets cross-validation fit each transformation only on the training portion of each fold. Resampling, target encoding, feature selection, and hyperparameter tuning also need fold-aware handling.'),
+      heading('Choose the split from the data-generating process'),
+      list(['Use stratified folds for independent observations when preserving class proportions is important.','Use group-aware splitting when multiple rows belong to the same person, account, device, or entity.','Use time-aware splitting when future prediction is the real deployment task.','Audit identifiers and row order; an ID may encode time, grouping, or accidental target information.']),
+      heading('Make comparisons fair'),
+      paragraph('Candidate models should use the same folds, target definition, feature availability, and scoring metric. Report every fold score and summarize mean and standard deviation. Keep a final holdout or competition test set untouched until the modeling decisions are complete.'),
+      paragraph('The goal is not to find the split that gives the largest score. The goal is to construct an evaluation that answers the research question honestly.')
     )
   },
   {
-    id: "cvpr-2024-vit",
-    title: "Efficient Edge Inference for Vision Transformers",
-    date: "June 2024",
-    category: "Computer Vision",
-    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2565&auto=format&fit=crop",
-    excerpt: "Scaling down ViTs for mobile devices without losing accuracy. We explore quantization and pruning techniques discussed in our CVPR Workshop paper.",
-    content: React.createElement("p", { className: "dark:text-gray-300" }, "Full article content coming soon...")
-  },
-  {
-    id: "isbi-2023-medical",
-    title: "Contrastive Learning in Medical Imaging",
-    date: "April 2023",
-    category: "Medical AI",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2670&auto=format&fit=crop",
-    excerpt: "Labeling medical data is expensive. This post analyzes how self-supervised contrastive learning can leverage unlabeled datasets to improve diagnostic accuracy.",
-    content: React.createElement("p", { className: "dark:text-gray-300" }, "Full article content coming soon...")
+    id: '3d-unet-sliding-window',
+    title: 'Why 3D medical image segmentation needs patch-based inference',
+    date: 'Draft · 2026',
+    category: 'Computer Vision',
+    image: '',
+    excerpt: 'Notes on volumetric tensors, memory limits, sliding windows, overlap, and the difference between patch inference and full-volume evaluation.',
+    content: React.createElement(React.Fragment, null,
+      paragraph('A 3D medical image is a volume, not a stack of unrelated 2D pictures. A typical tensor may contain batch, modality, depth, height, and width dimensions. A 3D convolution uses local neighborhoods across all three spatial axes, allowing the model to learn volumetric context.'),
+      heading('The memory problem'),
+      paragraph('Activation memory grows with batch size, number of feature channels, and spatial volume. During inference, a full-resolution volume can exceed available accelerator memory even when the model itself fits.'),
+      heading('Sliding-window inference'),
+      paragraph('Patch-based inference divides a volume into smaller windows. The model predicts each patch, and predictions are placed back into the corresponding region of the full output volume. Overlapping windows reduce boundary artifacts; predictions in overlapping regions can be blended or averaged.'),
+      code('for window in sliding_windows(volume, patch_size, stride):\n    patch = extract(volume, window)\n    logits = model(patch)\n    accumulate(output, logits, window)\n    accumulate(weight_map, ones_like(logits), window)\n\noutput = output / clamp_min(weight_map, 1)'),
+      heading('What must be checked'),
+      list(['Tensor shapes and axis order: D, H, W must be consistent across images and masks.','Patch size and stride: ensure every voxel is covered, including boundaries.','Overlap aggregation: avoid dividing by zero and document blending behavior.','Post-processing and label mapping: use the competition or dataset definition.','Evaluation: reconstruct full volumes before computing patient-level or volume-level metrics when that is the intended protocol.']),
+      paragraph('Patch inference is a computational strategy, not a change to the evaluation unit. A reproducible report should state the patch dimensions, stride, overlap, aggregation method, and whether metrics are computed per patch or on reconstructed volumes.')
+    )
   }
 ];
