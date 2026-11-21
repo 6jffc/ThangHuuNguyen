@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A reproducible research workspace for the Kaggle S6E11 Predicting Credit Card Fraud project: data audit, ROC-AUC, validation, modeling and experiment tracking.">
+<title>Credit Card Fraud Detection | Research Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07111f;--panel:#0d1b2d;--panel2:#102238;--line:#20364d;--text:#edf4fb;--muted:#9aadc1;--cyan:#5eead4;--blue:#60a5fa;--amber:#fbbf24;--rose:#fb7185;--green:#86efac;--max:1180px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 75% -10%,#173a59 0,transparent 38%),var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.65}a{color:inherit;text-decoration:none}.mono,code,pre{font-family:'DM Mono',monospace}.wrap{width:min(var(--max),calc(100% - 44px));margin:auto}.topbar{position:sticky;top:0;z-index:20;background:#07111fe8;backdrop-filter:blur(14px);border-bottom:1px solid #20364d}.nav{height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:800;letter-spacing:-.04em}.brand span{color:var(--cyan)}.navlinks{display:flex;gap:22px;color:var(--muted);font-size:13px}.navlinks a:hover{color:var(--cyan)}.back{font-size:12px;color:var(--cyan);border:1px solid #2b5960;padding:8px 12px;border-radius:8px}
+.hero{padding:88px 0 68px;border-bottom:1px solid var(--line)}.eyebrow{font:12px 'DM Mono';letter-spacing:.13em;text-transform:uppercase;color:var(--cyan)}h1{font:800 clamp(42px,7vw,76px)/1.02 Manrope,sans-serif;letter-spacing:-.065em;max-width:900px;margin:20px 0}.hero p{font-size:18px;color:#b5c5d6;max-width:760px}.chips{display:flex;flex-wrap:wrap;gap:9px;margin:25px 0}.chip{border:1px solid #29445d;color:#c4d6e7;padding:6px 10px;border-radius:999px;font:11px 'DM Mono'}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.btn{padding:11px 16px;border-radius:8px;background:var(--cyan);color:#06201f;font-weight:800;font-size:13px}.btn.secondary{background:transparent;color:var(--text);border:1px solid #3a536b}.status{display:inline-flex;align-items:center;gap:8px;color:var(--amber);font:11px 'DM Mono';border:1px solid #665321;padding:7px 10px;border-radius:7px}.dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 12px var(--amber)}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:48px}.metric{background:#0d1b2dbd;border:1px solid var(--line);padding:17px;border-radius:12px}.metric b{display:block;font:700 25px Manrope;color:var(--cyan)}.metric small{color:var(--muted);font-size:11px}
+.section{padding:72px 0;border-bottom:1px solid var(--line)}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}.kicker{font:11px 'DM Mono';color:var(--cyan);letter-spacing:.12em}.section h2{font:700 clamp(27px,4vw,40px)/1.15 Manrope;letter-spacing:-.04em;margin:8px 0}.lead{max-width:700px;color:var(--muted);margin:0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:linear-gradient(145deg,#102238,#0b1929);border:1px solid var(--line);border-radius:14px;padding:23px}.card h3{font:700 17px Manrope;margin:0 0 10px}.card p,.card li{color:#b5c5d6;font-size:14px}.card ul{padding-left:19px;margin:10px 0}.label{font:10px 'DM Mono';color:var(--cyan);letter-spacing:.12em;text-transform:uppercase}.formula{padding:14px 16px;background:#071421;border:1px solid #27425b;border-radius:9px;color:#d9f8f2;font:13px/1.9 'DM Mono';overflow:auto;margin:12px 0}.callout{border-left:3px solid var(--amber);padding:12px 16px;background:#261f123b;color:#e9d9ae;font-size:13px;margin-top:16px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;min-width:620px;font-size:13px}th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}th{background:#102238;color:#a9c3d8;font:11px 'DM Mono';text-transform:uppercase}td{color:#d1deea}tr:last-child td{border-bottom:0}.tp{color:var(--green)}.fp{color:var(--rose)}.fn{color:var(--amber)}.tn{color:var(--blue)}
+.demo{display:grid;grid-template-columns:1fr 1fr;gap:18px}.control{display:flex;justify-content:space-between;align-items:center;color:#c3d2e0;font-size:13px}.control output{font:14px 'DM Mono';color:var(--cyan)}input[type=range]{width:100%;accent-color:var(--cyan);margin:20px 0}.confusion{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:15px}.cell{padding:15px;background:#0a1725;border:1px solid var(--line);border-radius:9px}.cell b{display:block;font:700 24px Manrope}.cell small{color:var(--muted);font:10px 'DM Mono'}.cell.tp b{color:var(--green)}.cell.fp b{color:var(--rose)}.cell.fn b{color:var(--amber)}.cell.tn b{color:var(--blue)}.roc{width:100%;height:auto;display:block}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font:11px 'DM Mono'}.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px}
+pre{white-space:pre;overflow:auto;background:#06101b;border:1px solid #20364d;border-radius:10px;padding:18px;color:#d5e7f4;font-size:12px;line-height:1.7}pre .comment{color:#7895a9}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.step{border:1px solid var(--line);border-radius:11px;padding:16px;background:#0d1b2d}.step em{font:11px 'DM Mono';color:var(--cyan);font-style:normal}.step b{display:block;margin:7px 0;font:700 14px Manrope}.step span{font-size:12px;color:var(--muted)}
+.hypothesis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.hyp{padding:16px;border:1px solid var(--line);border-radius:10px;background:#0d1b2d}.hyp b{font:700 13px Manrope}.hyp p{margin:6px 0 0;color:var(--muted);font-size:12px}.tag{font:10px 'DM Mono';color:var(--amber)}
+.footer{padding:35px 0;color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+@media(max-width:800px){.navlinks{display:none}.metrics{grid-template-columns:repeat(2,1fr)}.grid2,.demo{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr)}.section{padding:52px 0}.hero{padding:65px 0 48px}}
+@media(max-width:480px){.wrap{width:min(100% - 28px,var(--max))}.metrics{gap:8px}.metric{padding:12px}.metric b{font-size:21px}.steps,.hypothesis{grid-template-columns:1fr}.hero p{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap nav"><a class="brand" href="../../">THANG<span> / </span>RESEARCH</a><nav class="navlinks"><a href="#overview">Overview</a><a href="#data">Data</a><a href="#metrics">Evaluation</a><a href="#workflow">Workflow</a><a href="#experiments">Experiments</a></nav><a class="back" href="../../#projects">← Portfolio</a></div></div>
+<header class="hero"><div class="wrap">
+<div class="eyebrow">KAGGLE · PLAYGROUND SERIES · S6E11</div>
+<div style="margin-top:18px"><span class="status"><i class="dot"></i> RESEARCH IN PROGRESS · RESULTS NOT YET VERIFIED</span></div>
+<h1>Predicting<br><span style="color:var(--cyan)">Credit Card Fraud</span></h1>
+<p>A reproducible machine-learning study of transaction fraud detection — from data auditing and statistical foundations to leakage-safe validation, ranking metrics, model comparison and experiment tracking.</p>
+<div class="chips"><span class="chip">BINARY CLASSIFICATION</span><span class="chip">IMBALANCED DATA</span><span class="chip">ROC-AUC</span><span class="chip">SCIKIT-LEARN</span><span class="chip">KAGGLE</span></div>
+<div class="actions"><a class="btn" href="#workflow">Explore methodology ↓</a><a class="btn secondary" href="https://github.com/6jffc/ThangHuuNguyen">GitHub repository ↗</a></div>
+<div class="metrics"><div class="metric"><b>01</b><small>Problem formulation</small></div><div class="metric"><b>02</b><small>Data & leakage audit</small></div><div class="metric"><b>03</b><small>Validation & ROC-AUC</small></div><div class="metric"><b>04</b><small>Reproducible experiments</small></div></div>
+</div></header>
+<main>
+<section class="section" id="overview"><div class="wrap"><div class="section-head"><div><div class="kicker">01 / RESEARCH QUESTION</div><h2>What are we predicting?</h2></div></div>
+<div class="grid2"><article class="card"><div class="label">Task definition</div><h3>Estimate fraud probability</h3><p>Given a transaction feature vector <code>x</code>, estimate a score that ranks fraudulent transactions above legitimate ones.</p><div class="formula">s(x) = P(Y = 1 | X = x)<br>Y ∈ {0: legitimate, 1: fraud}</div><p>The competition objective is evaluated with ROC-AUC. The model should output continuous scores or probabilities, not only hard class labels.</p></article>
+<article class="card"><div class="label">Research questions</div><h3>Questions before algorithms</h3><ul><li>What is the target prevalence and how severe is class imbalance?</li><li>Are train and test distributions comparable?</li><li>Does the identifier encode useful order, or create leakage risk?</li><li>Which validation design best represents the test setting?</li><li>Do feature engineering and boosting improve out-of-fold ranking?</li></ul></article></div>
+<div class="callout">Scope discipline: the numeric examples and interactive threshold demo on this page are synthetic teaching examples. They are not measured results from the S6E11 dataset or a Kaggle submission.</div>
+</div></section>
+<section class="section" id="data"><div class="wrap"><div class="section-head"><div><div class="kicker">02 / DATA UNDERSTANDING</div><h2>Audit the dataset before modeling</h2><p class="lead">Confirm the actual schema and data-generating structure. Treat every suspected pattern as a hypothesis until tested.</p></div></div>
+<div class="grid2"><article class="card"><div class="label">Input files</div><h3>Competition artifacts</h3><ul><li><code>train.csv</code> — features and target label.</li><li><code>test.csv</code> — features for prediction.</li><li><code>sample_submission.csv</code> — required output schema.</li></ul><p>Keep raw files immutable. Record row counts, column names, dtypes, missingness, duplicates, target prevalence and identifier properties.</p></article>
+<article class="card"><div class="label">EDA checklist</div><h3>Questions to answer</h3><ul><li>Is the target binary, complete and correctly typed?</li><li>Are feature columns aligned between train and test?</li><li>Are there duplicate rows or duplicate identifiers?</li><li>Do numerical features have extreme values or constant columns?</li><li>Do categorical levels appear only in test?</li><li>Does row order or time structure matter?</li></ul></article></div>
+<pre><span class="comment"># EDA — adapt paths and TARGET after inspecting the downloaded files</span>
+import pandas as pd
+
+train = pd.read_csv("/kaggle/input/COMPETITION/train.csv")
+test = pd.read_csv("/kaggle/input/COMPETITION/test.csv")
+sample = pd.read_csv("/kaggle/input/COMPETITION/sample_submission.csv")
+TARGET = "is_fraud"  # verify this against train.columns
+
+print("train/test:", train.shape, test.shape)
+print(train.dtypes.value_counts())
+print(train[TARGET].value_counts(dropna=False))
+print(train[TARGET].value_counts(normalize=True))
+print(train.isna().mean().sort_values(ascending=False).head(20))
+print("duplicate rows:", train.duplicated().sum())
+print("train-only:", sorted(set(train.columns) - set(test.columns)))
+print("test-only:", sorted(set(test.columns) - set(train.columns)))</pre>
+</div></section>
+<section class="section" id="metrics"><div class="wrap"><div class="section-head"><div><div class="kicker">03 / STATISTICAL FOUNDATION</div><h2>Confusion matrix & ROC-AUC</h2><p class="lead">The threshold turns a continuous score into a decision. ROC evaluates the ranking across all possible thresholds.</p></div></div>
+<div class="table-wrap"><table><thead><tr><th></th><th>Predicted fraud</th><th>Predicted legitimate</th></tr></thead><tbody><tr><th>Actually fraud</th><td class="tp"><b>TP</b> — correctly caught</td><td class="fn"><b>FN</b> — missed fraud</td></tr><tr><th>Actually legitimate</th><td class="fp"><b>FP</b> — false alarm</td><td class="tn"><b>TN</b> — correctly cleared</td></tr></tbody></table></div>
+<div class="grid2" style="margin-top:16px"><article class="card"><h3>Core rates</h3><div class="formula">TPR = TP / (TP + FN)  = Recall<br>FPR = FP / (FP + TN)<br>Precision = TP / (TP + FP)<br>Specificity = TN / (TN + FP)</div><p>ROC plots TPR on the vertical axis against FPR on the horizontal axis while the threshold changes.</p></article><article class="card"><h3>AUC as pairwise ranking</h3><div class="formula">AUC = P(score(fraud) &gt; score(legitimate))<br>       + 0.5 × P(tie)</div><p>An AUC of 0.5 corresponds to random ranking; 1.0 is perfect ranking. AUC does not determine the bank's final operating threshold or the business cost of errors.</p></article></div>
+<div class="demo" style="margin-top:18px"><article class="card"><div class="label">Interactive teaching example</div><h3>Move the decision threshold</h3><p>Ten synthetic transactions: 4 fraud and 6 legitimate. Flag a transaction when its score is at least the selected threshold.</p><div class="control"><label for="threshold">Threshold</label><output id="thresholdValue">0.70</output></div><input id="threshold" type="range" min="0" max="100" value="70" step="5"><div class="confusion"><div class="cell tp"><small>TRUE POSITIVE</small><b id="tp">—</b><small>Fraud caught</small></div><div class="cell fp"><small>FALSE POSITIVE</small><b id="fp">—</b><small>Legitimate flagged</small></div><div class="cell fn"><small>FALSE NEGATIVE</small><b id="fn">—</b><small>Fraud missed</small></div><div class="cell tn"><small>TRUE NEGATIVE</small><b id="tn">—</b><small>Legitimate cleared</small></div></div><div class="formula" id="rates">TPR — · FPR — · Precision —</div></article>
+<article class="card"><div class="label">ROC geometry</div><h3>Threshold sweep</h3><svg class="roc" viewBox="0 0 500 360" role="img" aria-label="Illustrative ROC curve with diagonal random classifier baseline"><line x1="64" y1="24" x2="64" y2="300" stroke="#7892a8"/><line x1="64" y1="300" x2="450" y2="300" stroke="#7892a8"/><line x1="64" y1="300" x2="450" y2="24" stroke="#61778a" stroke-dasharray="6 6"/><path id="rocPath" d="M64 300 L64 231 L128 231 L128 162 L193 162 L193 93 L257 93 L257 24 L450 24" fill="none" stroke="#5eead4" stroke-width="4" stroke-linejoin="round"/><circle id="rocPoint" cx="257" cy="93" r="7" fill="#fbbf24" stroke="#07111f" stroke-width="3"/><g fill="#9aadc1" font-size="11" font-family="DM Mono"><text x="48" y="315">0</text><text x="444" y="315">1</text><text x="38" y="29">1</text><text x="37" y="304">0</text><text x="215" y="344">False Positive Rate</text><text transform="translate(15 210) rotate(-90)">True Positive Rate</text><text x="305" y="45" fill="#5eead4">Model ROC</text><text x="295" y="65">Diagonal = random</text></g></svg><div class="legend"><span><i style="background:var(--cyan)"></i>ROC path</span><span><i style="background:var(--amber)"></i>Current threshold</span></div><p style="font-size:12px;color:var(--muted)">Illustrative geometry only; this curve is generated from the synthetic score list below, not from competition predictions.</p></article></div>
+<div class="card" style="margin-top:16px"><div class="label">Manual AUC calculation</div><h3>Count positive–negative pairs</h3><p>Teaching scores: fraud = 0.95, 0.80, 0.65, 0.40; legitimate = 0.90, 0.70, 0.30, 0.20, 0.10, 0.05. There are 4 × 6 = 24 pairs.</p><div class="formula">Wins: 6 + 5 + 4 + 4 = 19<br>Ties: 0<br>AUC = (19 + 0.5 × 0) / 24 = 0.7917</div><p>Interpretation: a randomly selected fraud receives a higher score than a randomly selected legitimate transaction in 19 of 24 possible pairs.</p></div>
+</div></section>
+<section class="section" id="workflow"><div class="wrap"><div class="section-head"><div><div class="kicker">04 / EXPERIMENTAL PIPELINE</div><h2>Leakage-safe modeling workflow</h2><p class="lead">Establish a reliable baseline first. Keep every learned transformation inside the validation fold.</p></div></div>
+<div class="steps"><div class="step"><em>01 · INSPECT</em><b>EDA & data audit</b><span>Schema, target prevalence, missing values, ID and drift checks.</span></div><div class="step"><em>02 · VALIDATE</em><b>Split strategy</b><span>Stratified folds; investigate time or group structure before random splitting.</span></div><div class="step"><em>03 · MODEL</em><b>Baseline → boosting</b><span>Logistic Regression, tree ensembles, then controlled feature experiments.</span></div><div class="step"><em>04 · REPORT</em><b>OOF & submission</b><span>Fold AUC, mean and SD; refit on all training data after selection.</span></div></div>
+<pre><span class="comment"># Leakage-safe baseline — numerical and categorical preprocessing</span>
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import StratifiedKFold, cross_val_score
+
+X = train.drop(columns=[TARGET])
+y = train[TARGET]
+num = X.select_dtypes(include="number").columns
+cat = X.columns.difference(num)
+
+prep = ColumnTransformer([
+    ("num", Pipeline([
+        ("impute", SimpleImputer(strategy="median")),
+        ("scale", StandardScaler())
+    ]), num),
+    ("cat", Pipeline([
+        ("impute", SimpleImputer(strategy="most_frequent")),
+        ("ohe", OneHotEncoder(handle_unknown="ignore"))
+    ]), cat)
+])
+model = Pipeline([
+    ("prep", prep),
+    ("clf", LogisticRegression(max_iter=1000))
+])
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+scores = cross_val_score(model, X, y, cv=cv, scoring="roc_auc", n_jobs=-1)
+print("fold AUC:", scores)
+print("mean ± SD:", scores.mean(), scores.std(ddof=1))</pre>
+<div class="grid2"><article class="card"><h3>Model ladder</h3><ul><li>Dummy / simple baseline to validate the pipeline.</li><li>Logistic Regression as an interpretable baseline.</li><li>Random Forest or ExtraTrees for nonlinear interactions.</li><li>Gradient boosting (LightGBM, XGBoost, CatBoost) if available and appropriate.</li></ul></article><article class="card"><h3>Leakage prevention</h3><ul><li>Never fit imputers, scalers or encoders on the full dataset before splitting.</li><li>Resample only inside each training fold.</li><li>Do not tune repeatedly against the public leaderboard.</li><li>Keep identical folds when comparing candidate models.</li></ul></article></div>
+</div></section>
+<section class="section" id="experiments"><div class="wrap"><div class="section-head"><div><div class="kicker">05 / RESEARCH LOG</div><h2>Hypotheses & experiment register</h2><p class="lead">No result is entered until the corresponding experiment has actually run and can be reproduced.</p></div></div>
+<div class="hypothesis"><div class="hyp"><span class="tag">H1 · FEATURE VALUE</span><b>Identifier may encode order or time</b><p>Compare with-ID and without-ID variants; inspect ordering, uniqueness and leakage risk.</p></div><div class="hyp"><span class="tag">H2 · DISTRIBUTION</span><b>Train and test may differ</b><p>Compare feature distributions, category coverage and missingness; quantify drift.</p></div><div class="hyp"><span class="tag">H3 · MODEL CAPACITY</span><b>Boosting may improve ranking</b><p>Compare against logistic regression using identical folds and features.</p></div><div class="hyp"><span class="tag">H4 · IMBALANCE</span><b>Resampling may change ranking</b><p>Test class weights and fold-contained resampling; measure ROC-AUC and secondary metrics.</p></div></div>
+<div class="table-wrap" style="margin-top:20px"><table><thead><tr><th>Run</th><th>Experiment</th><th>Validation</th><th>ROC-AUC</th><th>Status</th></tr></thead><tbody><tr><td>R00</td><td>Baseline / schema audit</td><td>To be specified</td><td>—</td><td>Pending</td></tr><tr><td>R01</td><td>Logistic Regression</td><td>Stratified 5-fold</td><td>—</td><td>Pending</td></tr><tr><td>R02</td><td>Tree / boosting model</td><td>Same folds as R01</td><td>—</td><td>Pending</td></tr><tr><td>R03</td><td>ID ablation</td><td>Same folds</td><td>—</td><td>Pending</td></tr><tr><td>R04</td><td>Class-weight / resampling test</td><td>Same folds</td><td>—</td><td>Pending</td></tr></tbody></table></div>
+<div class="callout">Reproducibility record for each run: timestamp · dataset version · feature list · split indices · random seed · preprocessing · model parameters · fold scores · mean ± SD · code commit · conclusion.</div>
+</div></section>
+</main>
+<footer class="wrap footer"><span>Predicting Credit Card Fraud · Research workspace</span><span>Built as part of the ThangHuuNguyen portfolio · <a href="https://github.com/6jffc/ThangHuuNguyen" style="color:var(--cyan)">Source on GitHub</a></span></footer>
+<script>
+const samples=[{y:1,s:.95},{y:1,s:.80},{y:1,s:.65},{y:1,s:.40},{y:0,s:.90},{y:0,s:.70},{y:0,s:.30},{y:0,s:.20},{y:0,s:.10},{y:0,s:.05}];
+const slider=document.getElementById('threshold'),out=document.getElementById('thresholdValue');
+function update(){const t=Number(slider.value)/100;out.textContent=t.toFixed(2);let tp=0,fp=0,fn=0,tn=0;for(const d of samples){const pred=d.s>=t;if(d.y&&pred)tp++;else if(!d.y&&pred)fp++;else if(d.y)fn++;else tn++;}
+document.getElementById('tp').textContent=tp;document.getElementById('fp').textContent=fp;document.getElementById('fn').textContent=fn;document.getElementById('tn').textContent=tn;
+const tpr=tp/(tp+fn),fpr=fp/(fp+tn),precision=tp+fp?tp/(tp+fp):0;document.getElementById('rates').textContent='TPR '+tpr.toFixed(3)+' · FPR '+fpr.toFixed(3)+' · Precision '+precision.toFixed(3);
+document.getElementById('rocPoint').setAttribute('cx',64+386*fpr);document.getElementById('rocPoint').setAttribute('cy',300-276*tpr);
+}
+slider.addEventListener('input',update);update();
+</script>
+</body></html>
