@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
     method:'Nguyên tắc làm nghiên cứu', methodNote:'Một dự án tốt không chỉ có mô hình chạy được. Nó cần câu hỏi rõ, dữ liệu có nguồn gốc, baseline phù hợp, phép đo đúng và kết quả có thể tái lập.',
     principles:['Đặt câu hỏi và giả thuyết trước khi chọn mô hình.','Đọc và kiểm tra dữ liệu trước khi huấn luyện.','Thiết lập baseline và validation trước tối ưu.','So sánh công bằng: cùng split, metric và điều kiện.','Ghi lại seed, cấu hình, phiên bản dữ liệu và commit.','Phân biệt kết quả đo được, giả thuyết và ý kiến cá nhân.'],
     connect:'Kết nối & hồ sơ', connectNote:'Tôi luôn sẵn sàng trao đổi về AI, học thuật, dự án mã nguồn mở và cơ hội cộng tác.',
-    links:[['GitHub','https://github.com/6jffc'],['Kaggle','https://www.kaggle.com/'],['Email','mailto:']]
+    links:[['GitHub','https://github.com/6jffc']]
   } : {
     role:'Data Science student · AI research learner and practitioner',
     intro:'I am interested in turning mathematical ideas and machine-learning methods into AI systems that are measurable, reproducible, and useful in practice.',
@@ -39,7 +39,7 @@ export const Home: React.FC = () => {
     method:'Research principles', methodNote:'A strong project is more than a working model. It needs a clear question, traceable data, a meaningful baseline, appropriate metrics, and reproducible evidence.',
     principles:['Write the research question and hypothesis before choosing a model.','Inspect and understand the data before training.','Establish a baseline and validation protocol before tuning.','Compare fairly: same splits, metrics, and conditions.','Record seeds, configurations, data versions, and code commits.','Separate measured results, hypotheses, and personal opinions.'],
     connect:'Connect & profiles', connectNote:'I welcome conversations about AI, learning, open-source projects, and research collaboration.',
-    links:[['GitHub','https://github.com/6jffc'],['Kaggle','https://www.kaggle.com/'],['Email','mailto:']]
+    links:[['GitHub','https://github.com/6jffc']]
   };
   return (
     <div className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
