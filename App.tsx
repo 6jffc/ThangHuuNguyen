@@ -10,8 +10,9 @@ import { ThemeLanguageProvider } from './contexts/ThemeLanguageContext';
 
 const AppContent: React.FC = () => {
   const [currentRoute, setCurrentRoute] = useState<AppRoute>(AppRoute.PROFILE);
+  // GitHub Pages is static hosting; use a query route so /studio does not return a server 404.
   const isStudioRoute = typeof window !== 'undefined' &&
-    window.location.pathname.replace(/\/$/, '').endsWith('/studio');
+    new URLSearchParams(window.location.search).get('p') === '/studio';
 
   if (isStudioRoute) {
     return <PrivateBlogStudio />;
