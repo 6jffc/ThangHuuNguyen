@@ -105,6 +105,12 @@ export const NEWS: NewsUpdate[] = [
 
 export const PROJECTS: Project[] = [
   {
+    title: "Predicting Credit Card Fraud — S6E11",
+    description: "A reproducible Kaggle research workspace covering fraud-risk formulation, EDA, confusion matrix, ROC-AUC, leakage-safe validation, baseline modeling and experiment tracking.",
+    tags: ["Kaggle", "Fraud Detection", "ROC-AUC", "Scikit-learn", "Research"],
+    link: "https://6jffc.github.io/ThangHuuNguyen/projects/credit-card-fraud/"
+  },
+  {
     title: "ADHD Prediction via fMRI",
     description: "Applied Deep Learning to predict ADHD using demographic data and fMRI connectivity matrices.",
     tags: ["Medical AI", "Deep Learning", "Python"]
