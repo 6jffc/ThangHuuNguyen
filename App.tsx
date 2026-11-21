@@ -9,14 +9,13 @@ import { AppRoute } from './types';
 import { ThemeLanguageProvider } from './contexts/ThemeLanguageContext';
 
 const AppContent: React.FC = () => {
+  const [currentRoute, setCurrentRoute] = useState<AppRoute>(AppRoute.PROFILE);
   const isStudioRoute = typeof window !== 'undefined' &&
     window.location.pathname.replace(/\/$/, '').endsWith('/studio');
 
   if (isStudioRoute) {
     return <PrivateBlogStudio />;
   }
-
-  const [currentRoute, setCurrentRoute] = useState<AppRoute>(AppRoute.PROFILE);
 
   const renderContent = () => {
     switch (currentRoute) {
