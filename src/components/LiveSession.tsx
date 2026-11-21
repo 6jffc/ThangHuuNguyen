@@ -54,7 +54,10 @@ export const LiveSession: React.FC = () => {
               setVolume(Math.sqrt(sum / inputData.length));
 
               const pcmData = float32ToPCM16(inputData);
-              const base64Data = arrayBufferToBase64(pcmData.buffer);
+              // Copy into a concrete ArrayBuffer (Uint8Array.buffer is typed as ArrayBufferLike).
+              const pcmBuffer = new ArrayBuffer(pcmData.byteLength);
+              new Uint8Array(pcmBuffer).set(pcmData);
+              const base64Data = arrayBufferToBase64(pcmBuffer);
 
               sessionPromise.then(session => {
                   session.sendRealtimeInput({
