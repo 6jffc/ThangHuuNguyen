@@ -135,3 +135,21 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+@layer components {
+  .research-prose {
+    max-width: 72ch;
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+  }
+  .dark .research-prose { color: #d1d5db; }
+  .research-prose p { margin: 0 0 1.35rem; }
+  .research-prose h2 { margin: 2.6rem 0 1rem; font-size: 1.65rem; color: #111827; }
+  .dark .research-prose h2 { color: #f9fafb; }
+  .research-prose ul { margin: 1rem 0 1.5rem; padding-left: 1.4rem; list-style: disc; }
+  .research-prose li { margin: 0.55rem 0; padding-left: 0.25rem; }
+  .research-prose pre { margin: 1.5rem 0; padding: 1.1rem 1.25rem; overflow-x: auto; border: 1px solid #e5e7eb; border-radius: 0.5rem; background: #f8fafc; color: #172033; font: 0.88rem/1.75 ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .dark .research-prose pre { border-color: #374151; background: #111827; color: #e5e7eb; }
+}
