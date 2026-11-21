@@ -1,55 +1,19 @@
 import React from 'react';
-import { PROJECTS } from '../constants';
 import { Sidebar } from './Sidebar';
 import { useThemeLanguage } from '../contexts/ThemeLanguageContext';
 
+const items = [
+ {name:'Predicting Credit Card Fraud — Kaggle S6E11',type:'Machine Learning / Tabular Data',status:'In progress',description:'A reproducible fraud-detection study covering data audit, class imbalance, ROC-AUC, leakage-safe validation, baselines and experiment tracking.',tags:['Python','Scikit-learn','ROC-AUC','Kaggle'],href:'https://6jffc.github.io/ThangHuuNguyen/projects/credit-card-fraud/'},
+ {name:'3D Brain MRI Segmentation',type:'Medical AI / Computer Vision',status:'Research practice',description:'Hands-on implementation and auditing of a 3D U-Net pipeline: volume preprocessing, tensor shapes, sliding-window inference, checkpoint restoration and validation.',tags:['PyTorch','3D U-Net','MRI','Segmentation']},
+ {name:'Vehicle Detection & Distance Estimation',type:'Computer Vision',status:'Selected project',description:'A practical vision task combining object detection with geometric or learned distance estimation. Evaluation should separate detection quality from distance error.',tags:['Object Detection','Computer Vision','Geometry']},
+ {name:'Vietnamese Job Description Intelligence',type:'Applied AI / Data Engineering',status:'Project development',description:'A data pipeline and local-language assistant concept for collecting, structuring and analyzing Vietnamese job descriptions and skill requirements.',tags:['Python','ETL','NLP','Vietnamese']},
+ {name:'ADHD Outcome Prediction from fMRI',type:'Biomedical Data Science',status:'Competition study',description:'A multi-source prediction problem using functional-connectome and tabular features, with attention to class-wise performance and validation design.',tags:['fMRI','Connectome','Classification','SHAP']}
+];
 export const Projects: React.FC = () => {
-  const { t } = useThemeLanguage();
-
-  return (
-    <div className="w-full bg-white dark:bg-gray-900 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
-                
-                {/* --- LEFT COLUMN (MAIN CONTENT) --- */}
-                <div className="lg:col-span-3">
-                    <header className="mb-12 border-b border-gray-200 dark:border-gray-700 pb-8">
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 font-sans">{t.projects.header}</h1>
-                        <p className="text-gray-500 dark:text-gray-400 font-serif italic">{t.projects.subHeader}</p>
-                    </header>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {PROJECTS.map((project, idx) => (
-                            <div 
-                                key={idx} 
-                                onClick={() => project.link && window.open(project.link, '_blank')}
-                                className={`bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 transition-all group ${project.link ? 'cursor-pointer hover:border-academic-accent dark:hover:border-blue-400 hover:shadow-md' : ''}`}
-                            >
-                                <div className="flex justify-between items-start mb-3">
-                                    <h3 className={`font-bold text-xl font-sans ${project.link ? 'text-academic-accent dark:text-blue-400' : 'text-gray-900 dark:text-white'}`}>
-                                        {project.title}
-                                    </h3>
-                                    {project.link && <i className="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-academic-accent dark:group-hover:text-blue-400 transition-colors"></i>}
-                                </div>
-                                <p className="text-sm text-gray-600 dark:text-gray-300 mb-6 leading-relaxed font-serif">
-                                    {project.description}
-                                </p>
-                                <div className="flex flex-wrap gap-2 mt-auto">
-                                    {project.tags.map((tag, tIdx) => (
-                                        <span key={tIdx} className="px-2 py-1 bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-300 text-xs rounded font-mono border border-gray-100 dark:border-gray-600">
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* --- RIGHT COLUMN (SIDEBAR) --- */}
-                <Sidebar />
-            </div>
-        </div>
-    </div>
-  );
+ const {language}=useThemeLanguage(); const vi=language==='vi';
+ return <div className="bg-white dark:bg-gray-950 min-h-screen"><div className="max-w-5xl mx-auto px-6 py-12 md:py-16 grid lg:grid-cols-[minmax(0,1fr)_220px] gap-12"><main>
+  <header className="pb-8 border-b border-gray-200 dark:border-gray-800"><p className="text-xs font-mono uppercase tracking-[.18em] text-blue-600 dark:text-blue-400 mb-3">PROJECTS / IMPLEMENTATION</p><h1 className="text-4xl font-semibold tracking-tight">{vi?'Dự án & Thực nghiệm':'Projects & Experiments'}</h1><p className="mt-3 max-w-2xl text-sm leading-7 text-gray-600 dark:text-gray-400">{vi?'Các dự án học tập và nghiên cứu được trình bày theo mục tiêu, phương pháp, trạng thái và bằng chứng triển khai. Trạng thái sẽ được cập nhật khi có kết quả thực tế.':'Learning and research projects documented by objective, method, status, and implementation evidence. Status labels are updated as work progresses.'}</p></header>
+  <div className="divide-y divide-gray-200 dark:divide-gray-800">{items.map((p,i)=><article key={p.name} className="py-7"><div className="flex flex-wrap items-center gap-3 mb-2"><span className="font-mono text-xs text-gray-400">0{i+1}</span><span className="text-[11px] font-mono uppercase tracking-widest text-blue-600 dark:text-blue-400">{p.type}</span><span className="text-[10px] border border-gray-300 dark:border-gray-700 text-gray-500 px-2 py-0.5 rounded">{p.status}</span></div><h2 className="text-xl font-semibold tracking-tight">{p.name}</h2><p className="mt-2 text-sm leading-7 text-gray-600 dark:text-gray-400 max-w-3xl">{p.description}</p><div className="flex flex-wrap gap-2 mt-4">{p.tags.map(t=><span key={t} className="text-[11px] font-mono text-gray-500 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 px-2 py-1 rounded">{t}</span>)}</div>{p.href&&<a href={p.href} className="inline-block mt-4 text-sm text-blue-700 dark:text-blue-400 hover:underline">{vi?'Mở trang dự án':'Open project page'} ↗</a>}</article>)}</div>
+  <div className="mt-8 p-5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800"><h3 className="font-semibold text-sm">{vi?'Tiêu chuẩn báo cáo dự án':'Project reporting standard'}</h3><p className="mt-2 text-sm leading-7 text-gray-600 dark:text-gray-400">{vi?'Mỗi dự án sẽ có problem statement, dataset provenance, data dictionary, baseline, validation protocol, metrics, ablation studies, error analysis, limitations và hướng phát triển tiếp theo.':'Each project should document its problem statement, dataset provenance, data dictionary, baseline, validation protocol, metrics, ablations, error analysis, limitations, and next steps.'}</p></div>
+ </main><Sidebar/></div></div>;
 };
