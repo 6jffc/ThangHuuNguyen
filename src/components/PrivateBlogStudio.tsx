@@ -90,7 +90,7 @@ export const PrivateBlogStudio: React.FC = () => {
     setMessage('');
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: window.location.href.split('?')[0] },
+      options: { redirectTo: window.location.href },
     });
     if (error) setMessage(error.message);
   };
