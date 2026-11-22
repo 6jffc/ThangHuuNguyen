@@ -9,41 +9,20 @@ import { AppRoute } from './types';
 import { ThemeLanguageProvider } from './contexts/ThemeLanguageContext';
 
 const AppContent: React.FC = () => {
-  const [currentRoute, setCurrentRoute] = useState<AppRoute>(AppRoute.PROFILE);
-  // GitHub Pages is static hosting; use a query route so /studio does not return a server 404.
-  const isStudioRoute = typeof window !== 'undefined' &&
-    new URLSearchParams(window.location.search).get('p') === '/studio';
-
-  if (isStudioRoute) {
-    return <PrivateBlogStudio />;
-  }
-
+  const queryRoute = typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('p') : null;
+  const [currentRoute, setCurrentRoute] = useState<AppRoute>(queryRoute === '/blog' ? AppRoute.BLOG : AppRoute.PROFILE);
+  const isStudioRoute = queryRoute === '/studio';
+  if (isStudioRoute) return <PrivateBlogStudio />;
   const renderContent = () => {
     switch (currentRoute) {
-      case AppRoute.BLOG:
-        return <Blog />;
-      case AppRoute.PROJECTS:
-        return <Projects />;
-      case AppRoute.ROADMAP:
-        return <Roadmap />;
+      case AppRoute.BLOG: return <Blog />;
+      case AppRoute.PROJECTS: return <Projects />;
+      case AppRoute.ROADMAP: return <Roadmap />;
       case AppRoute.PROFILE:
-      default:
-        return <Home />;
+      default: return <Home />;
     }
   };
-
-  return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans selection:bg-blue-100 selection:text-blue-900 dark:selection:bg-blue-900 dark:selection:text-blue-100 transition-colors duration-300">
-      <Navigation currentRoute={currentRoute} onNavigate={setCurrentRoute} />
-      <main className="w-full">{renderContent()}</main>
-    </div>
-  );
+  return <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-blue-100 selection:text-blue-900 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 dark:selection:bg-blue-900 dark:selection:text-blue-100"><Navigation currentRoute={currentRoute} onNavigate={setCurrentRoute} /><main className="w-full">{renderContent()}</main></div>;
 };
-
-const App: React.FC = () => (
-  <ThemeLanguageProvider>
-    <AppContent />
-  </ThemeLanguageProvider>
-);
-
+const App: React.FC = () => <ThemeLanguageProvider><AppContent /></ThemeLanguageProvider>;
 export default App;
